@@ -1,8 +1,6 @@
 FROM node:18
 
-WORKDIR /usr/src/app
-
-# ENV HOST 0.0.0.0
+WORKDIR /app
 
 COPY package*.json ./
 
