@@ -2,15 +2,17 @@
   "name": "asclepius-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/server/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@google-cloud/firestore": "^7.10.0",
     "@hapi/hapi": "^21.3.12",
+    "@tensorflow/tfjs-node": "^4.22.0",
     "eslint-config-dicodingacademy": "^0.9.4"
   },
   "devDependencies": {
