@@ -1,7 +1,9 @@
+require('dotenv').config();
+
 const Hapi = require('@hapi/hapi');
 const routes = require('./routes');
 const loadModel = require('../service/loadModel');
-const inputError = require('../exceptions/InputError');
+const InputError = require('../exceptions/InputError');
 
 (async () => {
   const server = Hapi.server({
@@ -31,9 +33,9 @@ const inputError = require('../exceptions/InputError');
       return newResponse;
     }
 
-    if (response.isBoom || response.instanceof(inputError)) {
+    if (response instanceof InputError || response.isBoom) {
       const statusCode =
-        response instanceof inputError
+        response instanceof InputError
           ? response.statusCode
           : response.output.statusCode;
       const newResponse = h.response({

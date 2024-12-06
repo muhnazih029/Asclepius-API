@@ -4,28 +4,40 @@ const getAllData = require('../service/getData');
 const crypto = require('crypto');
 
 async function postPrediction(request, h) {
-  const { image } = request.payload;
-  const { model } = request.server.app;
+  try {
+    const { image } = request.payload;
+    const { model } = request.server.app;
 
-  const id = crypto.randomUUID();
-  const { result, suggestion } = await predictClassification(model, image);
-  const createdAt = new Date().toISOString();
-  const data = {
-    id,
-    result,
-    suggestion,
-    createdAt,
-  };
+    const id = crypto.randomUUID();
+    const { result, suggestion } = await predictClassification(model, image);
+    const createdAt = new Date().toISOString();
+    const data = {
+      id: id,
+      result: result,
+      suggestion: suggestion,
+      createdAt: createdAt,
+    };
 
-  await storeData(id, data);
-  const response = h.response({
-    status: 'success',
-    message: 'Model is predicted successfully',
-    data: data,
-  });
-  response.code(201);
-  return response;
+    await storeData(id, data);
+
+    const response = h.response({
+      status: 'success',
+      message: 'Model is predicted successfully',
+      data: data,
+    });
+    response.code(201);
+    return response;
+  } catch (error) {
+    console.error(error);  // Log the error for debugging purposes
+    const response = h.response({
+      status: 'fail',
+      message: 'Terjadi kesalahan dalam melakukan prediksi',
+    });
+    response.code(500);  // Internal server error
+    return response;
+  }
 }
+
 
 async function historyPrediction(request, h) {
   const allData = await getAllData();
