@@ -19,7 +19,7 @@ async function predictClassification(model, image) {
       suggestion = 'Segera periksa ke dokter!';
     } else {
       result = 'Non-cancer';
-      suggestion = 'Penyakit kanker tidak terdeteksi.';
+      suggestion = 'Anda sehat!';
     }
     return { result, suggestion };
   } catch (error) {
