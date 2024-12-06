@@ -28,12 +28,12 @@ async function postPrediction(request, h) {
     response.code(201);
     return response;
   } catch (error) {
-    console.error(error);  // Log the error for debugging purposes
+    console.error(error);
     const response = h.response({
       status: 'fail',
       message: 'Terjadi kesalahan dalam melakukan prediksi',
     });
-    response.code(500);  // Internal server error
+    response.code(500);
     return response;
   }
 }
